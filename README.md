@@ -1,30 +1,110 @@
-# React + TypeScript + Vite
+# Opal Desktop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **desktop companion application for Opal** built with **Electron, React, TypeScript, Vite, and Tailwind CSS**.
 
-Currently, two official plugins are available:
+The project combines a React renderer with Electron's main process and uses IPC to coordinate desktop functionality such as window management, media-source selection, and floating application windows.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> **Portfolio note:** This repository is shared to demonstrate practical desktop application development and Electron architecture. Production credentials and environment secrets are intentionally excluded.
 
-## Expanding the ESLint configuration
+## ✨ Highlights
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Electron desktop application architecture
+- React + TypeScript renderer
+- Vite-based development and production builds
+- Electron Builder packaging
+- Multiple floating BrowserWindow interfaces
+- Desktop/window source discovery through Electron's `desktopCapturer`
+- IPC communication between renderer and main process
+- React Query for client-side server-state handling
+- Clerk-based authentication integration
+- Tailwind CSS and Radix UI components
+- Toast notifications with Sonner
 
-- Configure the top-level `parserOptions` property like this:
+## 🧰 Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+| Area | Technologies |
+| --- | --- |
+| Desktop Runtime | Electron |
+| Frontend | React 18, TypeScript |
+| Build Tool | Vite |
+| Packaging | Electron Builder |
+| UI | Tailwind CSS, Radix UI |
+| Authentication | Clerk |
+| Data | React Query, Axios |
+| Desktop IPC | Electron IPC |
+
+## 🏗️ Architecture
+
+```text
+Electron Main Process
+        │
+        ├── BrowserWindow management
+        ├── Desktop/window source discovery
+        ├── IPC handlers & events
+        │
+        ▼
+React Renderer
+        │
+        ├── UI components
+        ├── Authentication
+        ├── React Query
+        └── Application interactions
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The Electron main process creates and manages the application windows, while the React renderer handles the user interface. IPC is used to pass desktop events and data between the two layers.
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/alathul008/opal-electron-app.git
+cd opal-electron-app
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a local environment configuration containing only the credentials required by your development environment.
+
+**Never commit `.env` files, API keys, authentication secrets, or other credentials.**
+
+### 4. Run the development build
+
+```bash
+npm run dev
+```
+
+### 5. Build the desktop application
+
+```bash
+npm run build
+```
+
+The build script runs TypeScript compilation, Vite bundling, and Electron Builder packaging.
+
+## 🔐 Security Notes
+
+Electron applications should treat the renderer as an untrusted surface. This project keeps Node integration disabled and context isolation enabled in its BrowserWindow configuration.
+
+Keep secrets outside source control and provide configuration through environment variables or an appropriate secret-management system.
+
+## 📌 Development Focus
+
+This project demonstrates experience with:
+
+- Cross-platform desktop application architecture
+- Electron main/renderer process separation
+- IPC-based communication
+- React and TypeScript UI development
+- Desktop media/window source integration
+- Application packaging and build workflows
+
+## 📄 License
+
+No license has been declared for this repository. All rights are reserved unless otherwise stated by the repository owner.
